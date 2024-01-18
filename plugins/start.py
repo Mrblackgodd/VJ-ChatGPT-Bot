@@ -9,7 +9,7 @@ from pyrogram.types import (
 )
 
 
-LOG_TEXT = """<b>#NewUser
+LOG_TEXT = """<b>#NewUsergpt
     
 ID - <code>{}</code>
 
@@ -22,15 +22,15 @@ async def start_message(c,m):
     await db.add_user(m.from_user.id, m.from_user.first_name)
     await c.send_message(LOG_CHANNEL, LOG_TEXT.format(m.from_user.id, m.from_user.mention))
     await m.reply_photo(f"https://te.legra.ph/file/119729ea3cdce4fefb6a1.jpg",
-        caption="**ʜɪ** 👋\n\n**ɪ ᴀᴍ ᴀ ᴄʜᴀᴛɢᴘᴛ ʙᴏᴛ**\n\n⭕ **ᴘᴏᴡᴇʀᴇᴅ ʙʏ :-** **[Tᴇᴄʜ VJ](https://t.me/vj_botz)**",
+        caption="**ʜɪ** 👋\n\n**ɪ ᴀᴍ ᴀ ᴄʜᴀᴛɢᴘᴛ ʙᴏᴛ**\n\n⭕ **ᴘᴏᴡᴇʀᴇᴅ ʙʏ :-** **[𝐏𝐔𝐑𝐏𝐋𝐄 𝐁𝐎𝐓𝐙](https://t.me/purpleebots)**",
         reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton('💝 sᴜʙsᴄʀɪʙᴇ ʏᴏᴜᴛᴜʙᴇ ᴄʜᴀɴɴᴇʟ', url='https://youtube.com/@Tech_VJ')
+                        InlineKeyboardButton('🎥Movies/Webseries Search Group💕', url='https://t.me/+ylvI8ZZcge80MWRl')
                     ],  
                     [
-                        InlineKeyboardButton("❣️ ᴅᴇᴠᴇʟᴏᴘᴇʀ", url='https://t.me/Kingvj01'),
-                        InlineKeyboardButton("🤖 ᴜᴘᴅᴀᴛᴇ", url='https://t.me/VJ_Botz')
+                        InlineKeyboardButton("🥊𝐌𝐎𝐑𝐄 𝐁𝐎𝐓𝐒🥊", url='https://t.me/ezpzsupport/17'),
+                        InlineKeyboardButton("😍Anime😍", url='https://t.me/+nKz9rQJ893BlMGRl')
                     ]
                 ]
             )
