@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from config import LOG_CHANNEL
+from config import LOG_CHANNEL, REACTIONS
 from plugins.database import db
 from pyrogram.types import (
     InlineKeyboardMarkup,
