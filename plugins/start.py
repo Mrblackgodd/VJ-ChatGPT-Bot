@@ -18,6 +18,7 @@ Nᴀᴍᴇ - {}</b>
 
 @Client.on_message(filters.command('start'))
 async def start_message(c,m):
+    message.react(emoji=random.choice(REACTIONS))
     await db.is_user_exist(m.from_user.id)
     await db.add_user(m.from_user.id, m.from_user.first_name)
     await c.send_message(LOG_CHANNEL, LOG_TEXT.format(m.from_user.id, m.from_user.mention))
