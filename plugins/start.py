@@ -16,20 +16,19 @@ ID - {}
 Nᴀᴍᴇ - {}
 """
 
+
 @Client.on_message(filters.command('start'))
 async def start_message(c, m):
     user_id = m.from_user.id
-    user_firstname = m.from_user.first_name
-    channel_id = -1001967167299  # Update this with your channel ID
+    user_name = m.from_user.first_name
 
-    # Check if the user is already in the channel
-    is_member = await c.get_chat_member(channel_id, user_id)
-    if is_member.status == 'left':
-        await m.reply_text("Please join the updates channel first to use this bot.\n@purplebotz")
+    # Check if the user has joined the updates channel
+    if not await c.get_chat_member("-1001967167299", user_id):
+        await m.reply_text("Please join our updates channel to use this bot.\nhttps://t.me/purplebotz")
         return
 
     await db.is_user_exist(user_id)
-    await db.add_user(user_id, user_firstname)
+    await db.add_user(user_id, user_name)
     await c.send_message(LOG_CHANNEL, LOG_TEXT.format(user_id, m.from_user.mention))
     await m.reply_photo(
         "https://te.legra.ph/file/119729ea3cdce4fefb6a1.jpg",
