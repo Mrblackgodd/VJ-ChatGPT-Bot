@@ -18,7 +18,7 @@ Nᴀᴍᴇ - {}</b>
 
 @Client.on_message(filters.command('start'))
 async def start_message(c,m):
-    updates_channel = "https://t.me/purplebotz"
+    updates_channel = "@purplebotz"
 
     # Check if the user has joined the updates channel
     if not await c.get_chat_member(updates_channel, m.from_user.id):
