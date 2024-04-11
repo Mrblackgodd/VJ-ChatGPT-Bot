@@ -13,7 +13,7 @@ from telegram.ext import Updater, CommandHandler
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
-TOKEN = 'YOUR_BOT_TOKEN'
+TOKEN = 'BOT_TOKEN'
 
 # Replace 'YOUR_CHANNEL_ID' with your channel ID
 CHANNEL_ID = 'purplebotz'
