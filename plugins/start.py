@@ -8,6 +8,32 @@ from pyrogram.types import (
     Message
 )
 
+import telegram
+from telegram.ext import Updater, CommandHandler
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+
+# Replace 'YOUR_BOT_TOKEN' with your actual bot token
+TOKEN = 'YOUR_BOT_TOKEN'
+
+# Replace 'YOUR_CHANNEL_ID' with your channel ID
+CHANNEL_ID = 'purplebotz'
+
+def start(update, context):
+    keyboard = [[InlineKeyboardButton("Join Updates Channel", url=f"https://t.me/{CHANNEL_ID}")]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    update.message.reply_text("To receive updates, please join our channel:", reply_markup=reply_markup)
+
+def main():
+    updater = Updater(TOKEN, use_context=True)
+    dp = updater.dispatcher
+
+    dp.add_handler(CommandHandler('start', start))
+
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
 
 LOG_TEXT = """<b>#NewUsergpt
     
