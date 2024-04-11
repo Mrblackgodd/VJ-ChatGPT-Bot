@@ -23,7 +23,7 @@ async def start_message(c, m):
     user_name = m.from_user.first_name
 
     # Check if the user has joined the updates channel
-    if not await c.get_chat_member("-1001967167299", user_id):
+    if not await c.get_chat_member("-1001936923833", user_id):
         await m.reply_text("Please join our updates channel to use this bot.\nhttps://t.me/purplebotz")
         return
 
