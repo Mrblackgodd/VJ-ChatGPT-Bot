@@ -17,7 +17,7 @@ async def ai_answer(client, message):
         user_id = message.from_user.id
         if user_id:
             try:
-                msg = await message.reply_text("**ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ᴀ ᴍᴏᴍᴇɴᴛ ᴡʜɪʟᴇ ᴛʜᴇ ᴄʜᴀᴛʙᴏᴛ ʀᴇsᴘᴏɴᴅs ᴛᴏ ʏᴏᴜʀ ǫᴜᴇʀʏ . . .**")
+                msg = await message.reply_text("🔍")
                 users_message = message.text
                 user_id = message.from_user.id
                 response = openai.ChatCompletion.create(
@@ -37,6 +37,6 @@ async def ai_answer(client, message):
                 
             except Exception as error:
                 print(error)
-                await message.reply_text(f"**An error occurred:**\n\n**{error}**\n\n**Forward This Message To @KingVJ01**")
+                await message.reply_text(f"**An error occurred:**\n\n**{error}**\n\n**Forward This Message To @Lordsakunaa**")
     else:
         return
