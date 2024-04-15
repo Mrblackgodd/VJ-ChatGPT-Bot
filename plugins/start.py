@@ -38,7 +38,7 @@ async def start_message(c, m):
     else:
         await m.reply_text("Please join our updates channel to use this bot.", reply_markup=InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("Join Updates Channel", url=f"https://t.me/purplebotz")]
+                [InlineKeyboardButton("Join Updates Channel", url=f"https://t.me/{UPDATES_CHANNEL}")]
             ]
         ))
 
