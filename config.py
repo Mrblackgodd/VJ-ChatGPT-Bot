@@ -19,6 +19,7 @@ DB_URI = environ.get("DB_URI", "mongodb+srv://nehal969797:nehalsingh969797@clust
 DB_NAME = environ.get("DB_NAME", "chatgptvjbot")
 OPENAI_API = environ.get("OPENAI_API", "")
 AI = is_enabled((environ.get("AI","True")), False)
+UPDATES_CHANNEL = environ.get("UPDATES_CHANNEL", "purplebotz")
 REACTIONS = [
     "🔥", "❤️", "😍", "⚡", "👍", "👎", "❤", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "🍾", "💋", "🖕", "😈", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡"
 ]
