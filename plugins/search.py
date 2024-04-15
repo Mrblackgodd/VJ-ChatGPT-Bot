@@ -1,5 +1,7 @@
+
 from pyrogram import Client, filters
-from config import OPENAI_API, LOG_CHANNEL, AI
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from config import OPENAI_API, LOG_CHANNEL, AI, UPDATES_CHANNEL
 import openai
 import asyncio
 
@@ -10,33 +12,49 @@ async def send_message_in_chunks(client, chat_id, text):
     for i in range(0, len(text), max_length):
         await client.send_message(chat_id, text[i:i+max_length])
 
-
 @Client.on_message(filters.group | filters.private & filters.text & ~filters.command(['start', 'broadcast']))
 async def ai_answer(client, message):
-    if AI == True: 
+    if AI:
         user_id = message.from_user.id
         if user_id:
+            if not await client.get_chat_member(UPDATES_CHANNEL, user_id):
+                join_message = "Please join our Updates Channel to use this bot."
+                join_button = InlineKeyboardMarkup(
+                    inline_keyboard=[[InlineKeyboardButton("Join Updates Channel", url=f"t.me/{UPDATES_CHANNEL}")]]
+                )
+                await message.reply_text(join_message, reply_markup=join_button)
+                return
+
             try:
-                msg = await message.reply_text("**ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ᴀ ᴍᴏᴍᴇɴᴛ ᴡʜɪʟᴇ ᴛʜᴇ ᴄʜᴀᴛʙᴏᴛ ʀᴇsᴘᴏɴᴅs ᴛᴏ ʏᴏᴜʀ ǫᴜᴇʀʏ . . .**")
+                msg = await message.reply_text("Please wait while the chatbot responds to your query...")
                 users_message = message.text
-                user_id = message.from_user.id
                 response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant."},
                         {"role": "user", "content": users_message}
                     ],
-                    max_tokens=1200,  # Increase the value of max_tokens to allow for longer responses
+                    max_tokens=1200,
                     temperature=0.6
                 )
-                footer_credit = "<b><a href='t.me/Purpleadmin_dmbot'>• ʀᴇᴘᴏʀᴛ ɪꜱꜱᴜᴇ •</a>══<a href='https://t.me/purpleebots'>• ᴄᴏɴᴛᴀᴄᴛ ᴍᴀꜱᴛᴇʀ •</a></b>"
+                footer_credit = "• Report Issue •══• Contact Master •"
                 ai_response = response.choices[0].message.content.strip()
                 await msg.delete()
-                await send_message_in_chunks(client, message.chat.id, f"**ʜᴇʀᴇ ɪs ʏᴏᴜʀ ᴀɴsᴡᴇʀ ʀᴇʟᴀᴛᴇᴅ ᴛᴏ ʏᴏᴜʀ ǫᴜᴇʀʏ** 👇\n\n{ai_response}\n\n{footer_credit}")
-                await send_message_in_chunks(client, LOG_CHANNEL, f"**⭕ ᴀ ᴜsᴇʀ ɴᴀᴍᴇᴅ:** {message.from_user.mention} **ᴡɪᴛʜ ᴜsᴇʀ ɪᴅ -** {user_id}.\n🔍 **ᴀsᴋᴇᴅ ᴍᴇ ᴛʜɪs ǫᴜᴇʀʏ...**👇\n\n🔻 **ǫᴜᴇʀʏ:** `{users_message}`\n\n🔻 **ʜᴇʀᴇ ɪs ᴀɴsᴡᴇʀ ɪ ʀᴇsᴘᴏɴᴅᴇᴅ:**\n🖍️ {ai_response}\n\n\n🔻 **ᴜsᴇʀ ɪᴅ :-** {user_id} \n🔻 **ᴜsᴇʀ ɴᴀᴍᴇ :-** {message.from_user.mention}")
-                
+                await send_message_in_chunks(client, message.chat.id, f"Here is your answer related to your query 👇\n\n{ai_response}\n\n{footer_credit}")
+                await send_message_in_chunks(client, LOG_CHANNEL, f"A user named: {message.from_user.mention} with user id - {user_id}.\nAsked me this query...👇\n\n🔻 Query: {users_message}\n\n🔻 Here is answer I responded:\n🖍️ {ai_response}\n\n\n🔻 User ID: {user_id}\n🔻 User Name: {message.from_user.mention}")
+
             except Exception as error:
                 print(error)
-                await message.reply_text(f"**An error occurred:**\n\n**{error}**\n\n**Forward This Message To @Purpleadmin_dmbot**")
+                await message.reply_text(f"An error occurred:\n\n{error}\n\nForward This Message To @Purpleadmin_dmbot")
     else:
         return
+
+@Client.on_callback_query(filters.regex("verify_channel"))
+async def verify_channel(client, callback_query):
+    user_id = callback_query.from_user.id
+    if await client.get_chat_member(UPDATES_CHANNEL, user_id):
+        await callback_query.answer("You have successfully verified the channel.")
+        await callback_query.message.delete()
+        await ai_answer(client, callback_query.message)
+    else:
+        await callback_query.answer("Please join the Updates Channel to verify.")
