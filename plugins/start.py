@@ -22,7 +22,7 @@ async def start_message(c,m):
     await db.add_user(m.from_user.id, m.from_user.first_name)
     await c.send_message(LOG_CHANNEL, LOG_TEXT.format(m.from_user.id, m.from_user.mention))
     await m.reply_photo(f"https://graph.org/file/23381b3ec4f8663c0310a.mp4",
-        caption="**ʜɪ** 👋\n\n**ɪ ᴀᴍ ᴀ ᴄʜᴀᴛɢᴘᴛ ʙᴏᴛ**\n\n👿 **ᴘᴏᴡᴇʀᴇᴅ ʙʏ :-** **[PURPLEBOTZ](https://t.me/purplebotz)**",
+        caption="**ʜɪ** 👋\n\n**ɪ ᴀᴍ ᴀ ᴄʜᴀᴛɢᴘᴛ ʙᴏᴛ,Ask me any doubt! **\n\n👿 **ᴘᴏᴡᴇʀᴇᴅ ʙʏ :-** **[PURPLEBOTZ](https://t.me/purplebotz)**",
         reply_markup=InlineKeyboardMarkup(
                 [
                     [
